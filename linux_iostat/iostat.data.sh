@@ -11,14 +11,15 @@
 #
 #        NOTES: use this script with zabbix template, not by itself
 #       AUTHOR: E.S.Vasilyev - bq@bissquit.com; e.s.vasilyev@mail.ru
-#      VERSION: 1.0.0
+#      VERSION: 1.0.1
 #      CREATED: 18.10.2017
 #=========================================================================
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-iostat_refresh=60		# iostat ouput file refresh time in seconds
-param_column=0			# the number of iostat output column
+iostat_refresh=60	# iostat ouput file refresh time in seconds
+param_column=0		# the number of iostat output column
+date_diff=0		# difference between two dates in seconds
 
 #-------------------------------------------------------------------------
 # chech file exist and comparation of current time with last file
@@ -86,4 +87,9 @@ case $3 in
 	;;
 esac
 
+#-------------------------------------------------------------------------
+# you may be confused with awk command parameters below: $1 inside single
+# quotes - its awks column number. But $1 after awk command - its first
+# bash input variable (file with iostat output data)
+#-------------------------------------------------------------------------
 awk -v a_disk_name="$2" -v a_param_column="$param_column" '$1 ~ a_disk_name {sub(",",".",$a_param_column);print $a_param_column}' $1
