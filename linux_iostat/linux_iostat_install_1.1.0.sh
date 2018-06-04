@@ -3,7 +3,7 @@
 #         FILE: linux_iostat_install_1.1.0.sh
 #
 #        USAGE: ./linux_iostat_install_1.1.0.sh [ servers DNS/ip ] \
-#												[ hostname ]
+#						[ hostname ]
 #
 #  DESCRIPTION: 
 #
@@ -23,7 +23,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #=========================================================================
 function zabbix_agent_installation {
 	apt-get update
-	apt-get install zabbix-agent
+	apt-get install -y zabbix-agent
 
 	sed -i 's/^Server=.*/Server='"$1"'/' "/etc/zabbix/zabbix_agentd.conf"
 	sed -i 's/^Hostname=.*/Hostname='"$2"'/' "/etc/zabbix/zabbix_agentd.conf"
@@ -35,7 +35,7 @@ zabbix_agent_installation "$1" "$2"
 # default variables
 #-------------------------------------------------------------------------
 zabbix_conf_path="/etc/zabbix/zabbix_agentd.conf"	# path to zabbix agent config
-[[ -z "$( sed '/^Include=/!d' "$zabbix_conf_path" )" ]] && \
+[[ -z $( sed '/^Include=/!d' "$zabbix_conf_path" ) ]] && \
 	printf '%s\n' "Include=/etc/zabbix/zabbix_agentd.conf.d/*.conf" >> "$zabbix_conf_path"
 zabbix_ext_conf_path="$( sed -rn 's/^Include=(.*)\/.*$/\1/p' $zabbix_conf_path )" # extention configs path
 script_log_path="/tmp/linux_iostat_install.sh.log"
