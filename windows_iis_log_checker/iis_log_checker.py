@@ -1,3 +1,16 @@
+#=========================================================================
+#         FILE: iis_log_checker.py
+#
+#        USAGE: iis_log_checker.py [ HTTP return code number ]
+#		
+#
+#  DESCRIPTION: 
+#
+#        NOTES:
+#       AUTHOR: E.S.Vasilyev - bq@bissquit.com; e.s.vasilyev@mail.ru
+#      VERSION: 1.0.2
+#      CREATED: 21.06.2018
+#=========================================================================
 import re
 import os
 from sys import argv
